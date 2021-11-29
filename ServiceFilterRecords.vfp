@@ -1,0 +1,18 @@
+<apex:page standardController="Contact" extensions="ServiceFilterController" doctype="html-5.0">
+	<apex:form >
+    	<apex:pageBlock >
+        	<apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:selectList value="{!selectedRecordType}">
+                        <apex:selectOptions value="{!serviceRecordTypes}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:input type="date" value="{!dateFrom}" label="From"/>
+                    <apex:input type="date" value="{!dateTo}" label="To"/>
+                </apex:pageBlockSectionItem>
+                <apex:commandButton action="{!navToNewPage}" value="Next" id="theButton"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
