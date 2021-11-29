@@ -1,0 +1,38 @@
+public class ServiceFilterController {
+	
+    private Id contactId {get; set;}
+    
+    //attribute for filter page
+    public String selectedRecordType {get; set;}
+    public List<SelectOption> serviceRecordTypes {get; set;}
+    public Date dateFrom {get; set;}
+    public Date dateTo {get; set;}
+    
+    public void getRecordTypeValues() {
+        
+        //get all record types in Service__c
+        Schema.DescribeSObjectResult serviceDescribe = Schema.SObjectType.Service__c;
+        Map<String, Schema.RecordTypeInfo> recordTypeInfo = serviceDescribe.getRecordTypeInfosByName();
+        
+        //iterate over map of record types and create selectOption
+        serviceRecordTypes = new List<SelectOption>();
+        for(Schema.RecordTypeInfo rt : recordTypeInfo.values()){
+            if(!rt.isMaster()){
+                serviceRecordTypes.add(new SelectOption(rt.getRecordTypeId(), rt.getName()));
+            }
+        }
+    }
+    
+    public ServiceFilterController(ApexPages.StandardController standardController) {
+        contactId = (Id)standardController.getId();
+        getRecordTypeValues();
+    }
+    
+    public PageReference navToNewPage(){
+        
+        PageReference pageRef = Page.ServiceRecordsPDF;
+        pageRef.getParameters().put('RecordType', selectedRecordType);
+        pageRef.getParameters().put('contactId', contactId);
+        return pageRef;
+    }
+}
