@@ -1,0 +1,12 @@
+<apex:page renderAs="pdf" controller="ServiceController" doctype="html-5.0">
+    <apex:param name="RecordType" value="{!RecordType}"/>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:repeat value="{!servList}" var="serv" id="theRepeat">
+                	<apex:detail subject="{!serv}" relatedList="false" title="false"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
