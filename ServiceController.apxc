@@ -1,0 +1,11 @@
+public class ServiceController {
+    
+    private Id contactId = System.currentPageReference().getParameters().get('contactId');
+    Public String RecordType = System.currentPageReference().getParameters().get('RecordType');
+    public List<Service__c> servList {get; set;}
+    
+    public ServiceController(){
+        
+        servList = [SELECT Id, Name FROM Service__c WHERE Contact__r.Id = :contactId AND RecordType.Name = :RecordType];
+    }
+}
